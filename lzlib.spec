@@ -5,14 +5,14 @@
 # Source0 file verified with key 0x8FE99503132D7742 (antonio@gnu.org)
 #
 Name     : lzlib
-Version  : 1.9
-Release  : 1
-URL      : http://download.savannah.gnu.org/releases/lzip/lzlib/lzlib-1.9.tar.gz
-Source0  : http://download.savannah.gnu.org/releases/lzip/lzlib/lzlib-1.9.tar.gz
-Source99 : http://download.savannah.gnu.org/releases/lzip/lzlib/lzlib-1.9.tar.gz.sig
+Version  : 1.11
+Release  : 2
+URL      : http://download.savannah.gnu.org/releases/lzip/lzlib/lzlib-1.11.tar.gz
+Source0  : http://download.savannah.gnu.org/releases/lzip/lzlib/lzlib-1.11.tar.gz
+Source99 : http://download.savannah.gnu.org/releases/lzip/lzlib/lzlib-1.11.tar.gz.sig
 Summary  : No detailed summary available
 Group    : Development/Tools
-License  : GPL-2.0
+License  : BSD-2-Clause GPL-2.0
 Requires: lzlib-lib = %{version}-%{release}
 Requires: lzlib-license = %{version}-%{release}
 
@@ -59,21 +59,22 @@ license components for the lzlib package.
 
 
 %prep
-%setup -q -n lzlib-1.9
+%setup -q -n lzlib-1.11
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1547099087
+export SOURCE_DATE_EPOCH=1547681721
 %configure --disable-static
 make  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1547099087
+export SOURCE_DATE_EPOCH=1547681721
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/lzlib
+cp COPYING %{buildroot}/usr/share/package-licenses/lzlib/COPYING
 cp COPYING.GPL %{buildroot}/usr/share/package-licenses/lzlib/COPYING.GPL
 %make_install
 
@@ -92,8 +93,9 @@ cp COPYING.GPL %{buildroot}/usr/share/package-licenses/lzlib/COPYING.GPL
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/liblz.so.1
-/usr/lib64/liblz.so.1.9
+/usr/lib64/liblz.so.1.11
 
 %files license
 %defattr(0644,root,root,0755)
+/usr/share/package-licenses/lzlib/COPYING
 /usr/share/package-licenses/lzlib/COPYING.GPL
