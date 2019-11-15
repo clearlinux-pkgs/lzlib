@@ -6,13 +6,14 @@
 #
 Name     : lzlib
 Version  : 1.11
-Release  : 2
+Release  : 3
 URL      : http://download.savannah.gnu.org/releases/lzip/lzlib/lzlib-1.11.tar.gz
 Source0  : http://download.savannah.gnu.org/releases/lzip/lzlib/lzlib-1.11.tar.gz
-Source99 : http://download.savannah.gnu.org/releases/lzip/lzlib/lzlib-1.11.tar.gz.sig
+Source1 : http://download.savannah.gnu.org/releases/lzip/lzlib/lzlib-1.11.tar.gz.sig
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : BSD-2-Clause GPL-2.0
+Requires: lzlib-info = %{version}-%{release}
 Requires: lzlib-lib = %{version}-%{release}
 Requires: lzlib-license = %{version}-%{release}
 
@@ -28,17 +29,18 @@ Summary: dev components for the lzlib package.
 Group: Development
 Requires: lzlib-lib = %{version}-%{release}
 Provides: lzlib-devel = %{version}-%{release}
+Requires: lzlib = %{version}-%{release}
 
 %description dev
 dev components for the lzlib package.
 
 
-%package doc
-Summary: doc components for the lzlib package.
-Group: Documentation
+%package info
+Summary: info components for the lzlib package.
+Group: Default
 
-%description doc
-doc components for the lzlib package.
+%description info
+info components for the lzlib package.
 
 
 %package lib
@@ -60,22 +62,28 @@ license components for the lzlib package.
 
 %prep
 %setup -q -n lzlib-1.11
+cd %{_builddir}/lzlib-1.11
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1547681721
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1573789950
+export GCC_IGNORE_WERROR=1
+export CFLAGS="$CFLAGS -fno-lto "
+export FCFLAGS="$CFLAGS -fno-lto "
+export FFLAGS="$CFLAGS -fno-lto "
+export CXXFLAGS="$CXXFLAGS -fno-lto "
 %configure --disable-static
 make  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1547681721
+export SOURCE_DATE_EPOCH=1573789950
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/lzlib
-cp COPYING %{buildroot}/usr/share/package-licenses/lzlib/COPYING
-cp COPYING.GPL %{buildroot}/usr/share/package-licenses/lzlib/COPYING.GPL
+cp %{_builddir}/lzlib-1.11/COPYING %{buildroot}/usr/share/package-licenses/lzlib/d72a41edbb9850eb64165417b87b04b1a27fcf2e
+cp %{_builddir}/lzlib-1.11/COPYING.GPL %{buildroot}/usr/share/package-licenses/lzlib/244611d3ffa10dc67244ec317e7235aa5779f42a
 %make_install
 
 %files
@@ -83,12 +91,12 @@ cp COPYING.GPL %{buildroot}/usr/share/package-licenses/lzlib/COPYING.GPL
 
 %files dev
 %defattr(-,root,root,-)
-/usr/include/*.h
+/usr/include/lzlib.h
 /usr/lib64/liblz.so
 
-%files doc
+%files info
 %defattr(0644,root,root,0755)
-%doc /usr/share/info/*
+/usr/share/info/lzlib.info
 
 %files lib
 %defattr(-,root,root,-)
@@ -97,5 +105,5 @@ cp COPYING.GPL %{buildroot}/usr/share/package-licenses/lzlib/COPYING.GPL
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/lzlib/COPYING
-/usr/share/package-licenses/lzlib/COPYING.GPL
+/usr/share/package-licenses/lzlib/244611d3ffa10dc67244ec317e7235aa5779f42a
+/usr/share/package-licenses/lzlib/d72a41edbb9850eb64165417b87b04b1a27fcf2e
