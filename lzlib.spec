@@ -6,10 +6,10 @@
 #
 Name     : lzlib
 Version  : 1.11
-Release  : 3
+Release  : 4
 URL      : http://download.savannah.gnu.org/releases/lzip/lzlib/lzlib-1.11.tar.gz
 Source0  : http://download.savannah.gnu.org/releases/lzip/lzlib/lzlib-1.11.tar.gz
-Source1 : http://download.savannah.gnu.org/releases/lzip/lzlib/lzlib-1.11.tar.gz.sig
+Source1  : http://download.savannah.gnu.org/releases/lzip/lzlib/lzlib-1.11.tar.gz.sig
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : BSD-2-Clause GPL-2.0
@@ -69,17 +69,17 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1573789950
+export SOURCE_DATE_EPOCH=1605244468
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
-export FCFLAGS="$CFLAGS -fno-lto "
-export FFLAGS="$CFLAGS -fno-lto "
+export FCFLAGS="$FFLAGS -fno-lto "
+export FFLAGS="$FFLAGS -fno-lto "
 export CXXFLAGS="$CXXFLAGS -fno-lto "
 %configure --disable-static
 make  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1573789950
+export SOURCE_DATE_EPOCH=1605244468
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/lzlib
 cp %{_builddir}/lzlib-1.11/COPYING %{buildroot}/usr/share/package-licenses/lzlib/d72a41edbb9850eb64165417b87b04b1a27fcf2e
