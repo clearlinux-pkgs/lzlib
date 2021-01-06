@@ -1,5 +1,4 @@
-liblz.so.1:FLZe_encode_member
-liblz.so.1:FLZe_longest_match_len
+liblz.so.1:LZ_api_version
 liblz.so.1:LZ_compress_close
 liblz.so.1:LZ_compress_data_position
 liblz.so.1:LZ_compress_errno
